@@ -1,8 +1,15 @@
 <?php
 function connectToDatabase()
 {
+    //DB Local
+    // $servername = "localhost";
+    // $username = "root";
+    // $password = "";
+    // $dbname = "lorapaw";
+
+    //DB Panel
     $servername = "localhost";
-    $username = "root";
+    $username = "";
     $password = "";
     $dbname = "lorapaw";
     try {
