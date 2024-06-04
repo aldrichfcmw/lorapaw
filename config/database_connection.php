@@ -2,16 +2,16 @@
 function connectToDatabase()
 {
     //DB Local
-    // $servername = "localhost";
-    // $username = "root";
-    // $password = "";
-    // $dbname = "lorapaw";
-
-    //DB Panel
     $servername = "localhost";
-    $username = "";
+    $username = "root";
     $password = "";
     $dbname = "lorapaw";
+
+    //DB Panel
+    // $servername = "localhost";
+    // $username = "";
+    // $password = "";
+    // $dbname = "lorapaw";
     try {
         $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         // set the PDO error mode to exception
@@ -21,3 +21,5 @@ function connectToDatabase()
         echo "Connection failed: " . $e->getMessage();
     }
 }
+
+$pdo = connectToDatabase();
