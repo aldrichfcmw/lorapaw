@@ -94,5 +94,4 @@ class Telebot
             $task["do"](...$task["args"]);
         }
     }
-
 }
