@@ -1,6 +1,6 @@
 <?php
 
-require_once("./Telebot.php");
+require_once("./telebot.php");
 
 // initialize bot
 $bot = new Telebot("7465950918:AAExYVr4dM1Hwpo0rPBiw_4Fy1rKHAqrmyY");
