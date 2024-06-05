@@ -12,9 +12,9 @@ function getLastCounter($pdo)
 }
 
 // Fungsi untuk menyimpan data ke database
-function saveDataToDatabase($pdo, $cValue, $bValue, $laValue, $loValue, $sValue, $counter)
+function saveDataToDatabase($pdo, $counter, $cValue, $bValue, $laValue, $loValue, $sValue)
 {
-    $stmt = $pdo->prepare("INSERT INTO antares_data (counter, temp, bpm, latitude, longitude, status) VALUES (:C, :B, :La, :Lo, :S, :counter)");
+    $stmt = $pdo->prepare("INSERT INTO antares_data (counter, temp, bpm, latitude, longitude, status) VALUES (:counter, :C, :B, :La, :Lo, :S)");
     $stmt->bindParam(':counter', $counter);
     $stmt->bindParam(':C', $cValue);
     $stmt->bindParam(':B', $bValue);
@@ -30,8 +30,11 @@ $jsonString = fetchDataFromAntares($antaresUrl, $apiKey);
 // Mem-parse data dari Antares
 $conData = parseAntaresData($jsonString);
 
+// print_r($conData);
+
 // Ambil nilai counter dari data
-$counter = $conData['counter'];
+$countValue = $conData['counter'];
+// echo $countValue . "<br>";
 
 // Mem-parse data nested di dalam 'data' field
 $nestedData = parseNestedData($conData['data']);
@@ -41,15 +44,16 @@ $cValue = $nestedData['C'];
 $bValue = $nestedData['B'];
 $laValue = $nestedData['La'];
 $loValue = $nestedData['Lo'];
-$sValue = $nestedData['S'];
+$sValue = ($nestedData['S'] == "Sehat") ? "Kucing Sehat" : "Kucing Sakit";
+
 
 // Tampilkan data yang berhasil diambil dari Antares
-// echo "Data dari Antares:\n";
-// echo "C: $cValue\n";
-// echo "B: $bValue\n";
-// echo "La: $laValue\n";
-// echo "Lo: $loValue\n";
-// echo "S: $sValue\n";
+// echo "Data dari Antares: <br>";
+// echo "Temp      : $cValue" . "<br>";
+// echo "BPM       : $bValue"  . "<br>";
+// echo "Latitude  : $laValue" . "<br>";
+// echo "Longitude : $loValue" . "<br>";
+// echo "Status    : $sValue" . "<br>";
 
 // Koneksi ke database
 $pdo = connectToDatabase();
@@ -58,10 +62,10 @@ $pdo = connectToDatabase();
 $lastCounter = getLastCounter($pdo);
 
 // Bandingkan counter dengan data terbaru
-if ($lastCounter !== null && $lastCounter == $counter) {
+if ($lastCounter !== null && $lastCounter == $countValue) {
     echo "<br>" . "Data sama dengan yang tersimpan di database. Dilewatkan.";
 } else {
     // Jika counter berbeda atau data belum tersimpan, simpan ke database
-    saveDataToDatabase($pdo, $cValue, $bValue, $laValue, $loValue, $sValue, $counter);
+    saveDataToDatabase($pdo, $countValue, $cValue, $bValue, $laValue, $loValue, $sValue);
     echo "<br>" . "Data berhasil disimpan ke database.";
 }

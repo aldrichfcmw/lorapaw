@@ -1,7 +1,7 @@
 <?php
-
+require_once("./config/database_connection.php");
 require_once("./api/telebot.php");
-require_once("./api/get-data.php");
+
 
 // initialize bot
 $bot = new Telebot("7465950918:AAExYVr4dM1Hwpo0rPBiw_4Fy1rKHAqrmyY");
@@ -17,20 +17,28 @@ $bot->command("hello", function ($ctx) {
 });
 
 $bot->command("cek_kesehatan", function ($ctx) {
-    $data = getLastData();
-    $pesan = "Kesehatan Kucing: <br> " .
-        " Suhu  : " . $data['temp'] . " C <br>" .
-        " Denyut: " . $data['bpm'] . " Bpm <br>" .
-        " Status: " . $data['status'];
+    $pdo = connectToDatabase();
+    $stmt = $pdo->prepare("SELECT * FROM antares_data ORDER BY id DESC LIMIT 1");
+    $stmt->execute();
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    $pesan = "Kesehatan Kucing: \n" .
+        " - Tanggal \t: " . $data['created_at'] . "\n" .
+        " - Suhu \t \t \t : " . $data['temp'] . " C \n" .
+        " - Denyut \t \t: " . $data['bpm'] . " Bpm \n" .
+        " - Status \t \t : " . $data['status'];
     $ctx->replyWithText($pesan);
 });
 
 $bot->command("cek_lokasi", function ($ctx) {
-    $data = getLastData();
-    $pesan = "Lokasi Kucing: <br> " .
-        " Latitude  : " . $data['latitude'] . " <br>" .
-        " Longitude : " . $data['logitude'] . " <br>" .
-        " Links     :  https://www.google.com/maps/@" . $data['latitude'] . "," . $data['latitude'] . ",15z";
+    $pdo = connectToDatabase();
+    $stmt = $pdo->prepare("SELECT * FROM antares_data ORDER BY id DESC LIMIT 1");
+    $stmt->execute();
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    $pesan = "Lokasi Kucing: \n" .
+        " - Tanggal \t \t: " . $data['created_at'] . "\n" .
+        " - Latitude \t \t: " . $data['latitude'] . " \n" .
+        " - Longitude : " . $data['longitude'] . " \n" .
+        " - Links : https://www.google.com/maps/search/?api=1&query=" . $data['latitude'] . "," . $data['longitude'];
     $ctx->replyWithText($pesan);
 });
 

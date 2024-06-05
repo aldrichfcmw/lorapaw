@@ -21,5 +21,3 @@ function connectToDatabase()
         echo "Connection failed: " . $e->getMessage();
     }
 }
-
-$pdo = connectToDatabase();
