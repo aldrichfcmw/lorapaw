@@ -49,18 +49,19 @@ $conData = parseAntaresData($jsonString);
 //print_r($conData);
 
 // Ambil nilai counter dari data
-$countValue = $conData['counter'];
+// $countValue = $conData['counter'];
+$countValue = '';
 // echo $countValue . "<br>";
 
 // Mem-parse data nested di dalam 'data' field
-$nestedData = parseNestedData($conData['data']);
+// $nestedData = parseNestedData($conData['data']);
 
 // Ambil nilai-nilai yang diinginkan
-$cValue = $nestedData['C'];
-$bValue = $nestedData['B'];
-$laValue = $nestedData['La'];
-$loValue = $nestedData['Lo'];
-$sValue = ($nestedData['S'] == "Sehat") ? "Kucing Sehat" : "Kucing Sakit";
+$cValue = $conData['C'];
+$bValue = $conData['B'];
+$laValue = $conData['La'];
+$loValue = $conData['Lo'];
+$sValue = ($conData['S'] == "Sehat") ? "Kucing Sehat" : "Kucing Sakit";
 
 
 // Koneksi ke database

@@ -1,7 +1,9 @@
 <?php
 // URL API dan API Key dari Antares
-$antaresUrl = 'https://platform.antares.id:8443/~/antares-cse/antares-id/lorapaw/pawpaw/la';
-$apiKey = '8fde35f36ed0462e:a14424236b4a82a9'; // Ganti dengan API key Anda
+//$antaresUrl = 'https://platform.antares.id:8443/~/antares-cse/antares-id/LoRaPaw/PawPaw/la';
+//$apiKey = 'e01729cd434012fc:54cea06c60091035'; // Ganti dengan API key Anda
+$antaresUrl = 'https://platform.antares.id:8443/~/antares-cse/antares-id/PKMLoRaPaw/LoRaPaw-01/la';
+$apiKey = '0db3c758d29c43ed:8fec1441bfdee136';
 
 // Fungsi untuk mengambil data dari Antares
 function fetchDataFromAntares($url, $apiKey)
@@ -16,7 +18,7 @@ function fetchDataFromAntares($url, $apiKey)
     ]);
 
     $response = curl_exec($ch);
-
+  
     if ($response === false) {
         echo "Error fetching data from Antares: " . curl_error($ch);
         exit;

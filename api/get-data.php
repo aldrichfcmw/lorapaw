@@ -1,6 +1,5 @@
 <?php
 include('../config/database_connection.php');
-include('../config/antares.php');
 
 function getLastData()
 {
@@ -21,12 +20,14 @@ $laValue = $lastData['latitude'];
 $loValue = $lastData['longitude'];
 $sValue = $lastData['status'];
 $dateValue = $lastData['created_at'];
+//$countValue = $lastData['counter'];
 
-// // Tampilkan data yang berhasil diambil dari Antares
-// echo "Data dari Antares:";
-// echo "Temp      : $cValue" . "<br>";
-// echo "BPM       : $bValue"  . "<br>";
-// echo "Latitude  : $laValue" . "<br>";
-// echo "Longitude : $loValue" . "<br>";
-// echo "Status    : $sValue" . "<br>";
-// echo "Date      : $dateValue" . "<br>";
+// Tampilkan data yang berhasil diambil dari Antares
+echo "Data dari Antares: <br>";
+echo "Temp      : $cValue" . "<br>";
+echo "BPM       : $bValue"  . "<br>";
+echo "Latitude  : $laValue" . "<br>";
+echo "Longitude : $loValue" . "<br>";
+echo "Status    : $sValue" . "<br>";
+echo "Date      : $dateValue" . "<br>";
+//echo "Counter      : $countValue" . "<br>";
