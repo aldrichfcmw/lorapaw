@@ -9,9 +9,9 @@ function connectToDatabase()
 
     //DB Panel
     $servername = "localhost";
-    $username = "lorapaw-user";
-    $password = "fQ7ga563cIgv59dTdgoy";
-    $dbname = "lorapaw";
+    $username = "";
+    $password = "";
+    $dbname = "";
     try {
         $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         // set the PDO error mode to exception
